@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.LoadMap = new System.Windows.Forms.Button();
             this.openMapDialog = new System.Windows.Forms.OpenFileDialog();
             this.mapTextBox = new System.Windows.Forms.TextBox();
             this.imgTextBox = new System.Windows.Forms.TextBox();
             this.generateButton = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -58,6 +62,7 @@
             // 
             this.openMapDialog.DefaultExt = "osu";
             this.openMapDialog.FileName = "openMapDialog";
+            this.openMapDialog.RestoreDirectory = true;
             // 
             // mapTextBox
             // 
@@ -85,11 +90,25 @@
             this.generateButton.UseVisualStyleBackColor = true;
             this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(125, 236);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(100, 23);
+            this.progressBar.Step = 1;
+            this.progressBar.TabIndex = 6;
+            this.progressBar.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 261);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.generateButton);
             this.Controls.Add(this.imgTextBox);
             this.Controls.Add(this.mapTextBox);
@@ -99,6 +118,7 @@
             this.Name = "Form1";
             this.Text = "osu!Light Creator";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -112,6 +132,8 @@
         private System.Windows.Forms.TextBox mapTextBox;
         private System.Windows.Forms.TextBox imgTextBox;
         private System.Windows.Forms.Button generateButton;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ProgressBar progressBar;
 
     }
 }

@@ -11,6 +11,7 @@ using System.IO;
 using System.Windows;
 using System.Globalization;
 
+
 namespace osu_Spotlight_Creator
 {
     public partial class Form1 : Form
@@ -36,7 +37,8 @@ namespace osu_Spotlight_Creator
             openMapDialog.InitialDirectory = Environment.CurrentDirectory;
             DialogResult result = openMapDialog.ShowDialog();
             if (result != DialogResult.OK) return;
-            mapTextBox.Text = openMapDialog.InitialDirectory;
+            mapTextBox.Text = openMapDialog.FileName;
+
         }
 
         private void generateButton_Click(object sender, EventArgs e)
@@ -47,6 +49,8 @@ namespace osu_Spotlight_Creator
 
                 using (Stream openFileStream = openMapDialog.OpenFile())
                 {
+                    progressBar.Show();
+                    progressBar.Value = 0;
                     StreamReader reader = new StreamReader(openFileStream);
                     
                     int lineCount = 0;
@@ -65,6 +69,7 @@ namespace osu_Spotlight_Creator
                             line = line.Replace("SliderMultiplier:", "");
                             line = line.Replace(".", ",");
                             SliderMultiplier = floatParser(line);
+                            progressBar.Value = 10;
                         }
 
                         // Looks for BPM as it's needed for calculating slider speed
@@ -73,6 +78,7 @@ namespace osu_Spotlight_Creator
                             getNextInt(ref reader);
                             BPM =getNextFloat(ref reader);
                             reader.ReadLine();
+                            progressBar.Value = 20;
                         }
                         // Searches for the Hitobjects and saves the position on every point the spotlight should follow
                         else if (line == "[HitObjects]")
@@ -80,27 +86,86 @@ namespace osu_Spotlight_Creator
 
                             Console.WriteLine("Found [HitObjects] at line " + lineCount.ToString() + " !");
                             
+                            // Get all the beat data needed for the spotlight
                             List<Beat> list = new List<Beat>();
 
+                            Beat beat;
                             while (!reader.EndOfStream)
                             {
-                                Beat beat;
-                                beat.X = (short)(getNextInt(ref reader) + xOffset);
-                                beat.Y = (short)(getNextInt(ref reader) + yOffset);
-                                beat.Time = getNextInt(ref reader);
+
+                                beat = new Beat();
+                                beat.x = (short)(getNextInt(ref reader) + xOffset);
+                                beat.y = (short)(getNextInt(ref reader) + yOffset);
+                                beat.time = getNextInt(ref reader);
+                                if( 3 < getNextInt(ref reader) )
+                                {
+                                    beat.newCombo = true;
+                                }
+                                else
+                                {
+                                    beat.newCombo = false;
+                                }
+                                
                                 list.Add(beat);
+
+                                getNextInt(ref reader);
+
+
+                                char SliderType = (char)reader.Read();
+
+                                // If PeppySlider
+                                if((char)reader.Peek() == 'P')
+                                {
+
+                                }
+                                // If Beizer Slider
+                                else if((char)reader.Peek() == 'B')
+                                {
+
+                                }
+                                // If Linear Slider
+                                else if ((char)reader.Peek() == 'L')
+                                {
+
+                                }
                                 reader.ReadLine();
                             }
+                            progressBar.Value = 60;
 
+                            
+                            openFileStream.Position = 0;
 
+                            string finalOsuFile = reader.ReadToEnd();
+                            reader.Close() ;
+                            
                             // Prints out the storyboard data for the spotlight
-                            Console.WriteLine("Sprite,Foreground,Centre," +imgTextBox.Text.ToString() +",320,320");
-                            for (int i = 1; 1 < list.Count; i++ )
+                            string sbText = "Storyboard Layer 3 (Foreground)" + Environment.NewLine
+                                +"Sprite,Foreground,Centre," +imgTextBox.Text.ToString() +",320,320";
+                            for (int i = 1; i < list.Count; i++ )
                             {
-                                Console.WriteLine(" M,0," + list[i - 1].Time.ToString() +"," + list[i].Time.ToString()
-                                    + "," + list[i - 1].X.ToString() +"," + list[i - 1].Y.ToString()
-                                    + "," + list[i].X.ToString() + "," + list[i].Y.ToString());
+                                sbText += " M,0," + list[i - 1].time.ToString() +"," + list[i].time.ToString()
+                                    + "," + list[i - 1].x.ToString() +"," + list[i - 1].y.ToString()
+                                    + "," + list[i].x.ToString() + "," + list[i].y.ToString()
+                                    + Environment.NewLine;
                             }
+                            progressBar.Value = 80;
+
+
+                            finalOsuFile =finalOsuFile.Replace("Storyboard Layer 3 (Foreground)", sbText);
+
+                            progressBar.Value = 90;
+                            FileStream iStream = new FileStream(mapTextBox.Text, FileMode.Open, FileAccess.Read, FileShare.ReadWrite); 
+                            StreamWriter writer = new StreamWriter(mapTextBox.Text);
+
+
+
+                            progressBar.Value = 95;
+                            writer.Write(finalOsuFile);
+                            writer.Close();
+
+                            progressBar.Value = 100;
+                            MessageBox.Show("Spotlight SB is added!");
+                            progressBar.Hide();
                             break;
                         }
                     }
@@ -176,8 +241,10 @@ namespace osu_Spotlight_Creator
     }
     public struct Beat
     {
-        public short X;
-        public short Y;
-        public int Time;
+        public short x;
+        public short y;
+        public int time;
+        public bool newCombo;
+        public bool slider;
     }
 }

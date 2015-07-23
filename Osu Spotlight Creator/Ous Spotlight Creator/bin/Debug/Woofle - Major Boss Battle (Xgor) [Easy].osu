@@ -1,4 +1,4 @@
-osu file format v13
+﻿osu file format v13
 
 [General]
 AudioFilename: Woofle - Freedom Planet Official Soundtrack - 12 Major Boss Battle.mp3
@@ -47,6 +47,10 @@ SliderTickRate:2
 //Storyboard Layer 1 (Fail)
 //Storyboard Layer 2 (Pass)
 //Storyboard Layer 3 (Foreground)
+
+
+
+
 Sprite,Foreground,Centre,"SB\Text\Easy.png",320,503
  MY,0,22,917,450,280
  MX,0,5395,6290,320,-168
