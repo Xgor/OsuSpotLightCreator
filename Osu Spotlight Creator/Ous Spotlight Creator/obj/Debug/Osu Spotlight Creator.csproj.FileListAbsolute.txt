@@ -1,0 +1,18 @@
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Osu Spotlight Creator.csprojResolveAssemblyReference.cache
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Osu Spotlight Creator.csproj.GenerateResource.Cache
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\osu_Spotlight_Creator.Form1.resources
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\bin\Debug\Osu Spotlight Creator.exe.config
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\bin\Debug\Osu Spotlight Creator.exe
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\bin\Debug\Osu Spotlight Creator.pdb
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Osu_Spotlight_Creator.Properties.Resources.resources
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Osu Spotlight Creator.exe
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Osu Spotlight Creator.pdb
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Osu Spotlight Creator\Ous Spotlight Creator\bin\Debug\Osu Spotlight Creator.exe.config
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Osu Spotlight Creator\Ous Spotlight Creator\obj\Debug\Osu Spotlight Creator.exe
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Osu Spotlight Creator\Ous Spotlight Creator\obj\Debug\Osu Spotlight Creator.pdb
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Osu Spotlight Creator\Ous Spotlight Creator\bin\Debug\Osu Spotlight Creator.exe
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Osu Spotlight Creator\Ous Spotlight Creator\bin\Debug\Osu Spotlight Creator.pdb
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Osu Spotlight Creator\Ous Spotlight Creator\obj\Debug\Osu Spotlight Creator.csprojResolveAssemblyReference.cache
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Osu Spotlight Creator\Ous Spotlight Creator\obj\Debug\osu_Spotlight_Creator.Form1.resources
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Osu Spotlight Creator\Ous Spotlight Creator\obj\Debug\Osu_Spotlight_Creator.Properties.Resources.resources
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Osu Spotlight Creator\Ous Spotlight Creator\obj\Debug\Osu Spotlight Creator.csproj.GenerateResource.Cache

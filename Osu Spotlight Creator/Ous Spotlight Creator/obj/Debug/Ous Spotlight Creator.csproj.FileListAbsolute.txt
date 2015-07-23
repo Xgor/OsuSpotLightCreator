@@ -1,0 +1,12 @@
+c:\users\fredrik\documents\visual studio 2013\Projects\Ous Spotlight Creator\Ous Spotlight Creator\bin\Debug\Ous Spotlight Creator.exe.config
+C:\Users\Fredrik\Documents\visual studio 2013\Projects\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Ous Spotlight Creator.csprojResolveAssemblyReference.cache
+C:\Users\Fredrik\Documents\visual studio 2013\Projects\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Ous Spotlight Creator.csproj.GenerateResource.Cache
+C:\Users\Fredrik\Documents\visual studio 2013\Projects\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Ous_Spotlight_Creator.Form1.resources
+C:\Users\Fredrik\Documents\visual studio 2013\Projects\Ous Spotlight Creator\Ous Spotlight Creator\bin\Debug\Ous Spotlight Creator.exe
+C:\Users\Fredrik\Documents\visual studio 2013\Projects\Ous Spotlight Creator\Ous Spotlight Creator\bin\Debug\Ous Spotlight Creator.pdb
+C:\Users\Fredrik\Documents\visual studio 2013\Projects\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Ous_Spotlight_Creator.Properties.Resources.resources
+C:\Users\Fredrik\Documents\visual studio 2013\Projects\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Ous Spotlight Creator.exe
+C:\Users\Fredrik\Documents\visual studio 2013\Projects\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Ous Spotlight Creator.pdb
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\bin\Debug\Ous Spotlight Creator.exe.config
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Ous Spotlight Creator.exe
+C:\Users\Fredrik\Documents\GitHub\OsuSpotLightCreator\Ous Spotlight Creator\Ous Spotlight Creator\obj\Debug\Ous Spotlight Creator.pdb
