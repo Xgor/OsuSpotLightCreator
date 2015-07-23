@@ -16,8 +16,8 @@ namespace osu_Spotlight_Creator
 {
     public partial class Form1 : Form
     {
-        int xOffset = 48;
-        int yOffset = 64;
+        int xOffset = 64;
+        int yOffset = 56;
         public Form1()
         {
             InitializeComponent();
@@ -31,13 +31,23 @@ namespace osu_Spotlight_Creator
         private void LoadMap_Click(object sender, EventArgs e)
         {
             openMapDialog.DefaultExt = ".osu";
-            openMapDialog.Filter = "Osu Map files|*.osu";
+            openMapDialog.Filter = ".osu Map files|*.osu";
             openMapDialog.Multiselect = false;
             openMapDialog.Title = "Load Map File";
-            openMapDialog.InitialDirectory = Environment.CurrentDirectory;
+            if (mapTextBox.Text == "")
+            {
+                openMapDialog.InitialDirectory = Environment.CurrentDirectory;
+            }
+            else
+            {
+                openMapDialog.InitialDirectory = mapTextBox.Text;
+            }
             DialogResult result = openMapDialog.ShowDialog();
             if (result != DialogResult.OK) return;
             mapTextBox.Text = openMapDialog.FileName;
+       //     mapTextBox.Enabled = true;
+            LoadImg.Enabled = true;
+
 
         }
 
@@ -54,8 +64,8 @@ namespace osu_Spotlight_Creator
                     StreamReader reader = new StreamReader(openFileStream);
                     
                     int lineCount = 0;
-                    float SliderMultiplier;
-                    float BPM;
+       //             float SliderMultiplier;
+       //             float BPM;
                     while (!reader.EndOfStream)
                     {
                         lineCount++;
@@ -63,6 +73,7 @@ namespace osu_Spotlight_Creator
 
                         // Searches for spesific parts in the osu file to get the data needed
 
+                        /*
                         // Looks for SliderMultiplier as it's needed for calculating slider speed
                         if (line.Contains("SliderMultiplier:"))
                         {
@@ -81,22 +92,31 @@ namespace osu_Spotlight_Creator
                             progressBar.Value = 20;
                         }
                         // Searches for the Hitobjects and saves the position on every point the spotlight should follow
-                        else if (line == "[HitObjects]")
+                        else 
+                            */
+                        if (line == "[HitObjects]")
                         {
 
                             Console.WriteLine("Found [HitObjects] at line " + lineCount.ToString() + " !");
                             
                             // Get all the beat data needed for the spotlight
                             List<Beat> list = new List<Beat>();
-
+                           
                             Beat beat;
                             while (!reader.EndOfStream)
                             {
 
+                                // Create a beat and get the X Y and time of the beat
                                 beat = new Beat();
+
+
                                 beat.x = (short)(getNextInt(ref reader) + xOffset);
+
                                 beat.y = (short)(getNextInt(ref reader) + yOffset);
                                 beat.time = getNextInt(ref reader);
+
+                                // Checks if there is a new combo NOT WORKING
+                                /*
                                 if( 3 < getNextInt(ref reader) )
                                 {
                                     beat.newCombo = true;
@@ -105,30 +125,62 @@ namespace osu_Spotlight_Creator
                                 {
                                     beat.newCombo = false;
                                 }
-                                
-                                list.Add(beat);
-
+                                */
                                 getNextInt(ref reader);
-
+                               
+                                // Get the hitsound but dosn't do anything with it
+                                getNextInt(ref reader);
+                          //      Console.WriteLine("Gaa");
 
                                 char SliderType = (char)reader.Read();
 
                                 // If PeppySlider
-                                if((char)reader.Peek() == 'P')
+                                if (SliderType == 'P')
                                 {
-
+                                    beat.slider = true;
+                                    list.Add(beat);
+                                    openFileStream.Position++;
+                       //             beat = new Beat();
                                 }
                                 // If Beizer Slider
-                                else if((char)reader.Peek() == 'B')
+                                else if (SliderType == 'B')
                                 {
-
+                                    beat.slider = true;
+                                    list.Add(beat);
+                                    openFileStream.Position++;
+            //                        beat = new Beat();
                                 }
                                 // If Linear Slider
-                                else if ((char)reader.Peek() == 'L')
+                                else if (SliderType == 'L')
                                 {
+                                    int previousBeatTime = beat.time;
+                                    beat.slider = true;
 
+                                    reader.Read();
+                                    list.Add(beat);
+            
+
+                                    Beat sliderBeat = new Beat();
+
+                                    sliderBeat.x = (short)(getNextInt(ref reader) + xOffset);
+                                 
+                                    sliderBeat.y = (short)(getNextInt(ref reader) + yOffset);
+                                    getNextInt(ref reader);
+                                    sliderBeat.time = getNextInt(ref reader)*2 + previousBeatTime;
+                                  
+                                    list.Add(sliderBeat);
+
+                            
+                                    
                                 }
+                                else
+                                {
+                                    beat.slider = true;
+                                    list.Add(beat);
+                                }
+                           
                                 reader.ReadLine();
+                     
                             }
                             progressBar.Value = 60;
 
@@ -140,7 +192,7 @@ namespace osu_Spotlight_Creator
                             
                             // Prints out the storyboard data for the spotlight
                             string sbText = "Storyboard Layer 3 (Foreground)" + Environment.NewLine
-                                +"Sprite,Foreground,Centre," +imgTextBox.Text.ToString() +",320,320";
+                                + "Sprite,Foreground,Centre," + imgTextBox.Text.ToString() + ",320,320" + Environment.NewLine;
                             for (int i = 1; i < list.Count; i++ )
                             {
                                 sbText += " M,0," + list[i - 1].time.ToString() +"," + list[i].time.ToString()
@@ -182,13 +234,28 @@ namespace osu_Spotlight_Creator
 
         private int getNextInt(ref StreamReader reader)
         {
+       
             String tempString = "0";
-            while((char)reader.Peek() != ',')
+            while ((char)reader.Peek() != ',' && (char)reader.Peek() != ':' && (char)reader.Peek() != '|')
             {
                 tempString += (char)reader.Read();
+      
             }
+
             reader.Read();
-            return int.Parse(tempString);
+
+
+            int returnInt;
+            if(int.TryParse(tempString, out returnInt))
+            {
+                return returnInt;
+            }
+            else
+            {
+                Console.WriteLine("Failed to parse into int");
+                return 0;
+            }
+       //     return int.Parse(tempString);
         }
         private float getNextFloat(ref StreamReader reader)
         {
@@ -222,6 +289,24 @@ namespace osu_Spotlight_Creator
             return 0;
         }
 
+        private void LoadImg_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.DefaultExt = ".png";
+            openFileDialog1.Filter = ".png images|*.png";
+            openFileDialog1.Multiselect = false;
+            openFileDialog1.Title = "Highlight image";
+            openFileDialog1.InitialDirectory = mapTextBox.Text;
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result != DialogResult.OK) return;
+
+            string mapFolder = mapTextBox.Text.Remove(mapTextBox.Text.LastIndexOf('\\')+1);
+       //     text = mapTextBox.Text.Remove();
+            imgTextBox.Text = openFileDialog1.FileName.Replace(mapFolder, "");
+
+    //        generateButton.Enabled = true;
+            
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -237,6 +322,9 @@ namespace osu_Spotlight_Creator
         {
 
         }
+
+
+
 
     }
     public struct Beat
