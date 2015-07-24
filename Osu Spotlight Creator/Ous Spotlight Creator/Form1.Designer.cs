@@ -39,9 +39,21 @@
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.LoadImg = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.checkBeCo = new System.Windows.Forms.CheckBox();
+            this.checkKiai = new System.Windows.Forms.CheckBox();
             generateButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // generateButton
+            // 
+            generateButton.Location = new System.Drawing.Point(137, 207);
+            generateButton.Name = "generateButton";
+            generateButton.Size = new System.Drawing.Size(75, 23);
+            generateButton.TabIndex = 5;
+            generateButton.Text = "Generate";
+            generateButton.UseVisualStyleBackColor = true;
+            generateButton.Click += new System.EventHandler(this.generateButton_Click);
             // 
             // menuStrip1
             // 
@@ -85,16 +97,6 @@
             this.imgTextBox.TabIndex = 4;
             this.imgTextBox.TextChanged += new System.EventHandler(this.imgTextBox_TextChanged);
             // 
-            // generateButton
-            // 
-            generateButton.Location = new System.Drawing.Point(137, 207);
-            generateButton.Name = "generateButton";
-            generateButton.Size = new System.Drawing.Size(75, 23);
-            generateButton.TabIndex = 5;
-            generateButton.Text = "Generate";
-            generateButton.UseVisualStyleBackColor = true;
-            generateButton.Click += new System.EventHandler(this.generateButton_Click);
-            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
@@ -125,11 +127,33 @@
             this.openFileDialog1.FileName = "openMapDialog";
             this.openFileDialog1.RestoreDirectory = true;
             // 
+            // checkBeCo
+            // 
+            this.checkBeCo.AutoSize = true;
+            this.checkBeCo.Location = new System.Drawing.Point(12, 114);
+            this.checkBeCo.Name = "checkBeCo";
+            this.checkBeCo.Size = new System.Drawing.Size(137, 17);
+            this.checkBeCo.TabIndex = 8;
+            this.checkBeCo.Text = "Show between combos";
+            this.checkBeCo.UseVisualStyleBackColor = true;
+            // 
+            // checkKiai
+            // 
+            this.checkKiai.AutoSize = true;
+            this.checkKiai.Location = new System.Drawing.Point(12, 138);
+            this.checkKiai.Name = "checkKiai";
+            this.checkKiai.Size = new System.Drawing.Size(132, 17);
+            this.checkKiai.TabIndex = 9;
+            this.checkKiai.Text = "Only show on Kiai time";
+            this.checkKiai.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 261);
+            this.Controls.Add(this.checkKiai);
+            this.Controls.Add(this.checkBeCo);
             this.Controls.Add(this.LoadImg);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(generateButton);
@@ -158,6 +182,8 @@
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button LoadImg;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.CheckBox checkKiai;
+        private System.Windows.Forms.CheckBox checkBeCo;
 
     }
 }
