@@ -146,6 +146,7 @@
             this.checkKiai.TabIndex = 9;
             this.checkKiai.Text = "Only show on Kiai time";
             this.checkKiai.UseVisualStyleBackColor = true;
+            this.checkKiai.CheckedChanged += new System.EventHandler(this.checkKiai_CheckedChanged);
             // 
             // Form1
             // 
