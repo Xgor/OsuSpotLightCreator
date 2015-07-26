@@ -41,6 +41,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.checkBeCo = new System.Windows.Forms.CheckBox();
             this.checkKiai = new System.Windows.Forms.CheckBox();
+            this.checkSliderMov = new System.Windows.Forms.CheckBox();
             generateButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -148,11 +149,22 @@
             this.checkKiai.UseVisualStyleBackColor = true;
             this.checkKiai.CheckedChanged += new System.EventHandler(this.checkKiai_CheckedChanged);
             // 
+            // checkSliderMov
+            // 
+            this.checkSliderMov.AutoSize = true;
+            this.checkSliderMov.Location = new System.Drawing.Point(12, 162);
+            this.checkSliderMov.Name = "checkSliderMov";
+            this.checkSliderMov.Size = new System.Drawing.Size(146, 17);
+            this.checkSliderMov.TabIndex = 10;
+            this.checkSliderMov.Text = "Only move betwen sliders";
+            this.checkSliderMov.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 261);
+            this.Controls.Add(this.checkSliderMov);
             this.Controls.Add(this.checkKiai);
             this.Controls.Add(this.checkBeCo);
             this.Controls.Add(this.LoadImg);
@@ -185,6 +197,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.CheckBox checkKiai;
         private System.Windows.Forms.CheckBox checkBeCo;
+        private System.Windows.Forms.CheckBox checkSliderMov;
 
     }
 }

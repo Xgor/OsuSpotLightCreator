@@ -60,6 +60,7 @@ namespace osu_Spotlight_Creator
 
                 using (Stream openFileStream = openMapDialog.OpenFile())
                 {
+                    Cursor.Current = Cursors.WaitCursor;
             //        progressBar.Show();
                     progressBar.Value = 0;
                     StreamReader reader = new StreamReader(openFileStream);
@@ -89,8 +90,9 @@ namespace osu_Spotlight_Creator
                         else if (line == "[TimingPoints]")
                         {
                             int points = 0;
-                            while (true)
+                            while (reader.Peek() != 13)
                             {
+                                Console.WriteLine(reader.Peek());
                                 points++;
                                 Console.WriteLine("points nr"+points.ToString());
                                 TimingPoint timingPoint = new TimingPoint();
@@ -139,7 +141,7 @@ namespace osu_Spotlight_Creator
 
                                 beat.y = (short)(getNextInt(ref reader) + yOffset);
                                 beat.time = getNextInt(ref reader);
-
+                                Console.WriteLine(beat.time.ToString() + " time");
                                 // Checks if there is a new combo NOT WORKING
                                 
                                 if( 3 < getNextInt(ref reader) )
@@ -201,23 +203,18 @@ namespace osu_Spotlight_Creator
                                        beat.newCombo = false;
 
                                        middleSliderBeat.time += sliderTime;
-                               //        beatList.Add(middleSliderBeat);
-                                       Console.WriteLine("repeat nr"+i.ToString());
+                                       beatList.Add(middleSliderBeat);
                                        if (evenRepeat)
                                        {
                                            sliderBeat.time += sliderTime * 2;
-                                           beatList.Add(middleSliderBeat);
                                            beatList.Add(sliderBeat);
                                             
                                        }
                                        else
                                        {
                                            beat.time += sliderTime * 2;
-                                           beatList.Add(middleSliderBeat);
                                            beatList.Add(beat);
-                                           Console.WriteLine("middleSliderBeat " + middleSliderBeat.time.ToString());
-                                           Console.WriteLine("beat " + beat.time.ToString());
-                                       }
+                                     }
 
                                        evenRepeat = !evenRepeat;
                                    }
@@ -241,7 +238,6 @@ namespace osu_Spotlight_Creator
                                     {
                                         Beat SliderBeat = new Beat();
                                         SliderBeat.x = (short)(getNextInt(ref reader) + xOffset);
-                           
 
                                         String tempString = "0";
                                         while ((char)reader.Peek() != ',' && (char)reader.Peek() != ':' && (char)reader.Peek() != '|')
@@ -249,13 +245,13 @@ namespace osu_Spotlight_Creator
                                             tempString += (char)reader.Read();
 
                                         }
-                                        Console.WriteLine("Hype");
-                                        SliderBeat.y = short.Parse(tempString);
+                           
+                                        SliderBeat.y = (short)(short.Parse(tempString) + yOffset);
                                         SliderBeat.slider = true;
                                         sliderPoints.Add(SliderBeat);
-                                        if(reader.Peek() != ',')
+                                        if(reader.Read() == ',')
                                         {
-                                            Console.WriteLine("Slider exit");
+                               
                                             break;
                                         }
                                     }
@@ -263,11 +259,12 @@ namespace osu_Spotlight_Creator
                                     int repeatTimes = getNextInt(ref reader) - 1;
 
                                     int sliderTime = (int)((getNextInt(ref reader) * 4) / SliderMultiplier);
-                                    
+    
+
                                     for(int i = 0; i < sliderPoints.Count; i++)
                                     {
                                         Beat tempBeat = sliderPoints[i];
-                                        tempBeat.time =  previousBeatTime + sliderTime * ((i + 1) / sliderPoints.Count);
+                                        tempBeat.time =  (int)(previousBeatTime + (sliderTime * ((float)(i+1) / sliderPoints.Count)));
                                         beatList.Add(tempBeat);
                                     }
                                     /*
@@ -360,13 +357,14 @@ namespace osu_Spotlight_Creator
                      
                             }
                             progressBar.Value = 60;
-
+                            Console.WriteLine("Found all beats");
+                                
                             
                             openFileStream.Position = 0;
 
                             string finalOsuFile = reader.ReadToEnd();
                             reader.Close() ;
-                            
+                            Console.WriteLine("Found all beats2");
 
                             // Prints out the storyboard data for the spotlight
                             short currentTimePoint = 0;
@@ -374,6 +372,7 @@ namespace osu_Spotlight_Creator
                                 + "Sprite,Foreground,Centre," + imgTextBox.Text.ToString() + ",320,320";
                             for (int i = 1; i < beatList.Count; i++)
                             {
+                                Console.WriteLine("Beat "+(i+1).ToString()+"/"+beatList.Count.ToString());
                                 if (currentTimePoint+1 < timePointList.Count && timePointList[currentTimePoint + 1].Time < beatList[i].time)
                                 {
                                     Console.WriteLine(timePointList[currentTimePoint + 1].Time.ToString()+":"+  beatList[i].time.ToString());
@@ -383,12 +382,22 @@ namespace osu_Spotlight_Creator
 
                                 if (!checkKiai.Checked || timePointList[currentTimePoint].Kiai)
                                 {
-                                    if (!beatList[i].newCombo || checkBeCo.Checked)
+
+                                    if (!beatList[i].newCombo || checkBeCo.Checked || checkSliderMov.Checked)
                                     {
-                                        sbText += Environment.NewLine +
-                                            " M,0," + beatList[i - 1].time.ToString() + "," + beatList[i].time.ToString()
-                                            + "," + beatList[i - 1].x.ToString() + "," + beatList[i - 1].y.ToString()
-                                            + "," + beatList[i].x.ToString() + "," + beatList[i].y.ToString();
+                                        if (!checkSliderMov.Checked || !beatList[i].slider)
+                                        {
+                                            sbText += Environment.NewLine +
+                                                " M,0," + beatList[i - 1].time.ToString() + "," + beatList[i].time.ToString()
+                                                + "," + beatList[i - 1].x.ToString() + "," + beatList[i - 1].y.ToString()
+                                                + "," + beatList[i].x.ToString() + "," + beatList[i].y.ToString();
+                                        }
+                                        else
+                                        {
+                                            sbText += Environment.NewLine +
+                                                " M,0," + beatList[i - 1].time.ToString() + "," + beatList[i].time.ToString()
+                                                + "," + beatList[i - 1].x.ToString() + "," + beatList[i - 1].y.ToString();
+                                        }
                                     }
                                     else
                                     {
@@ -414,6 +423,7 @@ namespace osu_Spotlight_Creator
                             progressBar.Value = 100;
                             MessageBox.Show("Spotlight SB is added!");
                             progressBar.Hide();
+                            Cursor.Current = Cursors.Default;
                             break;
                         }
                     }
